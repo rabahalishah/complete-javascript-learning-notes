@@ -1,0 +1,19 @@
+********Scoping
+Scoping means how our JS code will be oraganised and accessed by JS engine. where do varaibles live and where we can access them or not?
+
+Scope is an environment or place where a certain variable is declared
+1. Global Scope (Declared outside of any function and block and can be accessed everywhere throughout the document.
+2. Function scope (Also called local scope. Functions create their own region and variables are declared in that region are only accessible inside the function NOT outside the function
+3. Block scope (anything inside the curly braces will create it region. This is only true for let and const variables As let and const are block scoped. Block scope is not apply for var variables as var is function scope)
+
+*** Scope Chain:
+variable in the child scope can access the variable declared in its parent scope. Note that all parent elements are children of global scope.
+Inner variables can access the variables of outer variables but outer variables cannot access the inner variables. In short children can access from their parents but parents cannot
+access from their children.
+Scope of Variable: In short its a region of our code where a certain variable is accessed.
+Scope and scope of a variable both are different things.
+Sibling elements cannot have access to the variables of eachother  The scope chain works upwards. neither downward nor sideway
+
+***********
+When the code is executed first the global objects are executed then the functions (or only when they are called)
+functions are also blocked scoped but only in case of strict mode

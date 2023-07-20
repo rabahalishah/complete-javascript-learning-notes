@@ -1,0 +1,37 @@
+DOM is used to interact with the elements of the web page.
+It is basically a structured representation of HTML page.
+DOM is tree structure.
+
+Document is a special object that is the enrty point to the DOM. e.g document.querySelector();
+This means query selector method is available on document object.
+DOM is not a part of JS.
+DOM methods and props are actually the part of Web APIs.
+
+Any thing we get as an input from the user we get it as a string.
+
+.querySelectorAll() method returns a node list.
+
+querySelector methods require CSS selectors which are classes and id.
+
+you can also add or remove CSS properties like classes by using .classList() method	
+
+***********handling keyboard events
+keyup: event will occur when the key is leave after press.
+keydown: event will occur when the key is pressed
+keypress: press and holding a key
+
+keyboard events are global events that we listen on the whole document therefore we write:
+
+//listening event on whole document instead on an element.
+document.addEventListener('keydown', function (e) {
+  if (e.key == 'Escape') {
+    modal.classList.add('hidden');
+    overlay.classList.add('hidden'); 
+  }
+});
+
+Here e is an event object which will be returned automatically when the event will occur. To see the info about the pressed key you can console.log(e) and object containing a lot of information will be returned.
+
+************Accessing image
+
+document.querySelector('.dice').src = `dice-${dice}.png`;

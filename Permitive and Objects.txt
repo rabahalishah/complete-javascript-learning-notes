@@ -1,0 +1,19 @@
+***Premitives are:  numbers, boolean, strings, undefined, null, symbol, BigInt etc.  Permitive types are store in execution context.
+
+When we declare a variable in call stake an identifier of the name of that variable, an address and its value are stored. When we re-assign the varibale to the another variable the newly created
+variable will also point towards the same address. But when we assign a variable a new value then a completely new address along with new value is stored in the call stack.
+
+**Objects (reference type): Objects literal, Arrays, Functions and Many more etc. They are store on HEAP of JS Engine. 
+In case of objects. when the objects are created the identifier, address are created but in value column there is reference of memory (heap). Now in Heap the reference along with the keys and values of objects are stored in HEAP. This is how objects are store because objects can be larger they cannot store in call stack therefore, they are stored in HEAP memory. In short call stack keep track where is object in heap and it will call when it is necessary.
+
+***IMPORTANT the values declared by the const are also mutable. This is true for the case of objects not for permitive values.
+Changing values in Heap doesn't affect by let or const. The only thing which is affect by let and const is the values in call Stack. We cannot change values in call stack declared by const.
+To Create a new copied object we can use:
+
+copiedObj = Object.assign({}, myObj}
+
+REMEMBER object.assign() only creates a shallow copy not a deep clone. Means it would copy only at the first level like if there is a nested object then the inner object wont have different
+address that will remain same. For deep cloning we have to use external libraries such as loadash
+
+
+b = JSON.parse(JSON.stringify(a))

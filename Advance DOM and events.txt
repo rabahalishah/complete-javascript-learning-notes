@@ -1,0 +1,59 @@
+
+------------------How DOM really works
+DOM is nothing its simply an interface to communicate between the Javascript and Web browser.
+So we can say that the DOM is very complex API as it has ton of methods and properties.
+Always remember everything in HTML document is a node. And each node in JS is represented by an object.
+Element, text, comments and even the document is node.
+These nodes in html provide the JS the ton of properties such as innerHTML, .remove(), .append() etc. 
+
+
+Now there is a concept of inheritance where all the children elements have access to their parent elements.
+
+
+addEventListeners work because of Event Target node which is parent of both node and window (global object node type). So thanks to inheritance with all make this possible interaction.
+
+when we click on an element then the event travel from capturing phase document-->html-->body-->section-->element and once the event is reached to the target state then it bubble back to the document.
+this process is called capturing and bubbling
+-------------------Method
+
+
+getComputedStyle() //this method is used to get the value of the styles added to the elements 
+
+console.log(getComputedStyle(message).color); // rgb(187,187,187);
+
+document.document.style.color.setProptery('--color-primary', 'orangered');
+
+The getBoundingClientRect() method returns the size of an element and its position relative to the viewport.
+
+The getBoundingClientRect() method returns a DOMRect object with eight properties: left, top, right, bottom, x, y, width, height.
+
+scrollIntoView() this method is used to scroll the window in the visible area.
+
+console.log(e.target) //gives the targeted element where e comes from the event function.
+console.log(e.currentTarget) //gives the current targeted element where e comes from the event function.
+
+The closest() method searches up the DOM tree for elements which matches a specified CSS selector. The closest() method starts at the element itself, then the anchestors (parent, grandparent, ...) until a match is found. The closest() method returns null() if no match is found.
+
+
+-----------------------Adding JS in HTML
+Regular in the head before body.
+
+this is not good cause the browser will start parsing the JS file and user will see nothing and this will load JS before the DOM loading. parsing HTML--> fetch script--> execute-->finishing parsing HTML.
+ So always put the JS at the end of the body tag. Then the process will look like this parsing complete HTML--> fetch script--> execute.
+
+
+<script async src="./script.js">
+In this the process will look like parsing HTML and fetching script happens at the same time which reduces the loading time of page. but once the script is fetched it will get executed right a way.
+process: pasring HTML and fetching (at same time)-->execution-->finishing parsing HTML
+This is not good for the large JS files as HTML will be parsed completely but some part of the JS will be load later
+
+<script defer src="./script.js"> In this the process will look like parsing HTML and fetching script happens at the same time which reduces the loading time of page. but once the script is fetched it will get executed at the end once the HTML is completely parsed. which is we require.
+process pasring complete HTML and fetching (at same time)-->execution
+
+defer and async dont make sense
+
+async is used when order doesnt matter
+defer is used when order matters.
+
+
+

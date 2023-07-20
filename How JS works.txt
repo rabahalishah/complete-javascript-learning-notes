@@ -1,0 +1,89 @@
+****High Level Language:
+In low level languages like C. User have to manually manage the memory. like even while creating varaible. On the other hand High level langugaes like python and Javascript there is a built in 
+alogrithm (garbage collector) and we dont need to worry about memory. Low level languages are much faster and optimized as compared to high level languages.
+
+****Garbage collector:
+Its a built in algorithm in javascript which is responsible for cleaning the unused objects from memory. Therefore we donot need to worry about memory management.
+
+****Iterpreted or run in time:
+Comveting code into machine language. This interpretation happens inside the Javascript engine.
+
+****Multi-paradigm:
+Different techinques to approach a solution of a problem.
+three famous paradigms are given below:
+1. procedural programming
+2. OOP
+3. Funtioncal Programming
+
+****Prototype-based Object oriented:
+like built in methods they are all on blue print we use them from there.
+
+****First-Class functions:
+In JS Functions are treated like regular variables.
+
+
+****Dynamic:
+NO need to define the type of variable they will be known at run time. Data type of variable will automatically changed on re-assigning
+
+****Concurrency Model:
+How javascript engine handle multiple tasks at the same time.
+JS is a single thread non blocking concurrency model. 
+Actually thread means a set of instructions. JS execute one instruction at a time. Then how it manage multiple tasks at a time?
+
+This happened by using:
+****EVENT LOOP :
+This means the JS take long running tasks and execute them in background and once they are completed JS put them into a thread.
+
+*****JS Engine
+Its simply a program that executes javascript code.
+Every JS engine have 2 components
+1. Call Stack (Where our code get executed)
+2. HEAP (An unstructured memory pool where our objects are stored)
+
+
+*********Difference between Compilation and interpretation
+As we know that our computer processor only understand zeros and one.
+Compilation: All code is converted into machine code at once and stored in a binary file which can executed by the computer.
+
+Source Code -----> Compilation (Portable file)-------> Execution
+
+Interpretaion: It runs through the source code and execute line by line
+
+Source Code -------> Line by Line Execution
+interpreted languages are very slower than compiled languages
+
+People think JS is interpreted language.
+
+BUT now its not true
+JS used a combination of interpretation and compilation which is called just in time compilation (JIT). This complied the code into machine code at once and then execute it immediately.
+Source Code -----> Compilation (No Portable file)-------> Execution
+
+Whats going on in engine:
+First the code is parse to the engine and the it is converted to AST (Abstract syntax tree) Code then send to Call Stack where this code is get executed (machine code).
+To save time the unoptimized version is sent first and then its is resend back to the compilation multiple times to get the optimized version but code wont stop. This make JS engine very fast.
+
+Parding-------> Compilation -----> Execution (Call Stack)--> |
+                        ^                                    |
+			|____________________________________|
+
+RUNTIME:
+JS Engine and Web APIS(DOM, Timer, Fetch API) are the part of Runtime. Its simply a container.
+Web APIs are not the part of JS but they provide features to JS engine accessible on window object.
+
+Execution Context:
+An enviroinment in which the code is executed. It stores all the necessary information to execute the code.
+There are three components of execution context:
+1. Variable environment (Which stores all the informatin of variables declared).
+2. Scope chain (The references of the varaibles which are outside the function).
+3. this keyword. 
+Now we can say that call stack cotains multiple execution context which keep track on top on each other in order which function is to be executed and when.
+
+(side INFO: Arrow functions do not have arguments and this key word
+
+
+So in SUMMARY:
+The JS code is executed in execution context which is in the Call Stack
+
+
+
+	

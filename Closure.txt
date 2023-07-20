@@ -1,0 +1,70 @@
+Its the HARDEST Javascript concept xD
+
+To understand closure you must an idea about execution context, Call Stack and scope chain.
+DEFINITION:
+Closure is a closed over Execution context. Every function always have access to the variable environment of the execution context in which the function is created even
+after that execution context is gone".
+
+We do NOT create closures manually or explicitly but the they happens automatically in certain situations and we just need to recognize those situations.
+Closure is strang. CLosure makes a function remember all the varaibles that existed at the functions birth place.
+
+const secureBooking = function() {
+	let passengerCount = 0;
+	
+	return function() {
+	
+	passengerCount++;
+	console.log(`${passengerCount} passengers`)}
+}
+}
+
+const booker = secureBooking();
+
+// EXPECTED OUTPUT:
+booker(); // 1 passengers
+booker(); // 1 passengers
+booker(); // 1 passengers
+booker(); // 1 passengers
+
+//ACTUAL OUTPU:
+booker(); // 1 passengers
+booker(); // 2 passengers
+booker(); // 3 passengers
+booker(); // 4 passengers
+
+OH DAMNNN how is this even possible. How booker function is able to access the passengerCount variable and remeber its value despite having  the fact that its
+out of the scope of secureBooking. How this function is able to update the variable 
+despite having the fact that the execution of booker has finished. When ever we call booker function we call it and it get executed and then finised immediately but how
+is it even possible that our next call remember the state of the previous call?
+
+ANSWER: In order to understand the answer to this big question is the concept of closure. Closure makes a function to remember all the variables that existed at the function birth place. But how?
+
+the booker function is created in global environment and added in a call stack. The secureBooking is also declared in global scope. but the function within the secureBooking 
+function is not global scope. The secret is that "Every function always have access to the variable environment of the execution context in which the function is created even
+after that execution context is gone".
+
+In this case the booker was created in execution context of the secureBooking function therefore, the booker function has access to the variable environment of secureBooking. And the function which is within the secureBooking is also created in the execution of secureBooking therefore it also have access to the variable environment of secureBooking moreover the function within the secureBooking is also in the scope chain of secureBooking.
+
+
+So now we can think that Closure is variable environment attached to the function, exactly as it was at the time and place the function was created.
+
+
+JS engine gives greater priority to the closure as compared to scope chain. Thats why all such stuff happened.
+
+
+A closure gives a function to access all the variables of its parent function, even after that 	parent function has returned. The function keeps reference to its outer scope, which 
+preserves the cope chain throughout the time.
+
+Thanks to closure which make sure thet the connection between the function and variable which existed at the functions birth place do not loose.
+
+A closure is like a bag pack which function always keep with it where ever it goes. This Bagpack has all the variables that were present in the environment where the function was created.
+
+To see the internal property of Closure we can use:
+
+console.dir(booker) //closure function
+
+now go to scope section of this result.
+
+whenever you see double bracket in console.dir this means its an internal property we cannot access them.
+
+Moreover, it not always the situation that the closure will happen only when there is a function returning another function. This wont be the case everytime.

@@ -1,0 +1,44 @@
+This keywords is a special variable points to the owner of the function. its value is not static its not always the same. It depends how the function is actually called. 
+And its value will be only assigned when the function is called.
+
+There are four ways of calling a function
+1. As method (In this case the this keyword will point towards the object on which this method is called.)
+2. Simple function call (In this case the this keyword will simply be undefined. Only when the strict mode is on. If the strict mode is off then this keyword will point toward the windows global      object
+3. Arrow function (Arrow functions donot have its own this keyword. But if you would do this then this keyword will simply point towards the this keyword of its parent element and parent element could also be global windows)
+4. EventListner (in this case this keyword will point toward the DOM element that the handler function is attached to.)
+
+
+This will never point the function in which we are using it. and This keyword will never point to the environment variables of the function.
+
+IMPORTANT: 
+**Never Ever use arrow functions inside objects (means dont use them as method)
+***Always use let and const instead of var.
+***It doesnt mean that under which function or object the this keyword is declared it will always point toward that
+object. NO its not true. Actually it will point toward the object which is calling the method.
+For example:
+const jonas = {
+  year : 1991,
+  calcAge: function() {
+    console.log(this);
+    console.log(2037-this.year);
+  }
+}
+
+const matilda = {
+  year : 2017,
+
+  }
+
+
+  matilda.calcAge = jonas.calcAge //borrowing the method
+
+  matilda.calcAge() //Answer would be 20 here as matilda is calling the method therefore this keyword will point towards matilda object not jonsa
+
+
+*************************
+var creates variable in windows global object and function declared by var donot have arguments keyword.
+
+A regular function have arguments keywordS
+
+
+

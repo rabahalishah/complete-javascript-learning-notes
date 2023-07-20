@@ -1,0 +1,99 @@
+***********Linking the JS file-
+To write javascript directly in html file we use script tag before head tag.
+BUT to link the JS file to the html file we use script tag but in the body section at last
+
+<script src="./script.js"></script>
+
+*******varaibles and values
+the values are simply values like even string is a value
+whereas variable creates a real variable in the computer memory where they store that value.
+asssume variable as a box
+
+**************Data Types
+In javascript the value not have a type variable. There are two data types in javascripts in which we can store values
+1. permitive values (number, strings, boolean, undefined, null, symbol and bigInt) //here symbol is value that is unique and cannot be changed
+2. Objects
+
+"type of" keyword is used to check the datatype of a value
+
+***********Let const and var 
+let and const are modern javascript wherease the var is the old way.
+let values are mutable, let also used for defining the empty variables
+its okay with let to reassign a new value....like if let age = 30 in future  it can be 31 its totally fine. but cannot do this with const. Once assigned it cannot mutate. as const is immutable. Moreover we cannnot declare empty const variable.
+
+BEST PRACTICE: Always use const as best practice and only use let when you are sure that this value is gonna change somewhere in future. and var variable should be avoided
+
+Let and const are block scope
+var is function scope. 
+
+**IMP: If you will create a variable without defining its type then JS will not create this variable in the currrent scope instead JS will create a property on global object.
+
+*********Basic operations
+
+we can console.log more than one value at a time.
+x++    => // x = x+1;
+comparison operators return the boolean values 
+
+****************Operator Precedence 
+In precedence there is a concept of performing opertion whether from right to left or left to right.
+for that you have to see the table from MDN docs precedence table. Higher the precedence the more operation is supposed to be perform first	
+
+*************Strings
+
+for multiple lines for printing we use "\n\"
+
+OR you can use `` instead of single or double quote
+
+**********Type conversion
+
+number() function is used to convert varaibles into numbers
+sring() function used to convert any varaible into string
+and this function return a new value it donot modify the original one
+
+*********Type coersion
+in this process we deal with two types of different variable and in the back end one variable is converted into other type to perform the opertion
+e.g adding string to number. Here number will converted into the string and will contatinate into the string this happens due to the + operator in case of - sign the action would be reversed. (string will convert to number)
+
+************Truthy and Falsy value
+Truthy are those values which will return a true value when we will convert them into Boolean() there are several type of truthy values, e.g ({} this will return a true value)
+whereas falsy are those which will return a false value when we will convert them into Boolean(). There are only 5 falsy values (0 , '', undefined, null, NaN)
+
+*******************=== vs ==
+= means assignment operator 
+=== means strict assignment operator (it donot perform the type coersion and will return true only when both the values are exactly the same) 18 === 18 ---> // true
+== loose equality operator (it performs type coersion and will return true value '18' == 18 ----> // true.
+
+*************Boolean operations
+NOT operator has greater precedence than OR(||) and AND (&&) operator
+
+*************Switch Case 
+This will return that code block which will meet the value of expression with case
+Switch case do strict equality comparison // expression === n
+
+switch(expression) {
+  case n:
+    code block
+    break;
+  case n:
+    code block
+    break;
+  default:
+    default code block
+}
+
+*********Difference between expression and statements
+Statements represent an action or command e.g print statements, assignment statements. Expression is a combination of variables, operations and values that yields a result value.
+
+expression => is a piece of code that produces a value.
+
+statement => it is actually a bigger value of code which donot produces any value and it ends with a semi colon.
+
+
+********Ternary operator
+condition ? 1st code  block : 2nd code block
+
+
+***************Production
+for production we use Babel to polyfill and transpile your code (ensure every browser compatibility for all users and convert code into ES5 respectively)
+A polyfill tries to emulate specific methods, so you can use them as if they were already supported by the browser (or node engine), on the other hand, A transpiler will modify your code and replace code by other code that does the same, which can then be executed in old browsers.
+

@@ -1,0 +1,4 @@
+its is:
+high level (we dont need to worry about memory management)
+Object Oriented (we will store most of the data in the form of objects)
+Multi-Paradigm (we can use different styles of progamming)
