@@ -751,7 +751,250 @@ An IIFE (Immediately Invoked Function Expression) is a function that runs the mo
 ```bash
 (() => console.log('I am IIFE'))();
 ```
+# 06 Advance Arrays and Methods
+### Array Methods
+### slice() Method
+The slice() method returns selected elements in an array, as a new array (not modify the original one). 
+The slice() method selects from a given start, up to a (not inclusive) given end.
+```bsah
+//slice(start, end)
+.slice(-1) means the last element
+console.log(arr.slice(2)) //[c, d, e]
+```
+this method can also be used to create a copy of an array.
+
+###Splice Method
+--------
+```bash
+.splice(start, end)
+```
+work same as slice but it modifies/mutate the original array. used to remove the elements
+
+### reverse() method
+
+this method reverse the elements but it mutate the original array 
+
+### concat() method
+this method returns a new array and used to merge 2 arrays
+```bash
+const combo = arr1.concat(arr2);
+console.log(combo);
+```
+
+
+### join() method
+
+join method is used to join the elements 
+```bash
+const arr =[a,b,c]
+console.log(arr.join('-')) // a-b-c
+```
+
+
+### forEach method
+This method is used to loop over each item and receives a function as an argument to what to do with each item
+
+```bash
+const arr =[1, 2, 3]
+arr.forEach(function(items){
+	console.log(items*2)
+}) // 2 4 6
+```
+
+
+### forEach on MAP and SET
+```bash
+//syntax:
+myMap.forEach(callback, value, key, thisArg)
+```
+
+```bash
+const myMap = new Map([['name', 'Larry Wheel'], ['skill', 'Wheeler'], ['age' ,'67']]);
+myMap.forEach(function(value, key, map){
+console.log(`${key}:${value}`)}); 
+
+// name:Larry Wheel
+   skill:Wheeler
+   age:67
+```
+
+
+### forEach on SET
+```bash
+const mySet = const myMap = new Map(['name', 'Larry Wheel', 'skill', 'Wheeler', 'age' ,'67']);
+mySet.forEach(function(value, _, map){
+console.log(`value}:${value}`)}); 
+```
 
 
 
+### MAP, FILTER, REDUCE
+forEach method is also used for side effects (means doing some work without returning any value)
+ALl these method loop over an array.
+- Map method is same as foreach method but the difference is that it returns a new array.
+```bash
+const arr = [1,2,3]
+const arr2 = arr.map(function(items){
+	 return items*2}
+console.log(arr2); //[2,4,6]
+```
 
+- Filter method also return a new array only containing those elements which passed the given test via function.
+```bash
+syntax: .filter((value, index, array)=>{call back function})
+```
+```bash
+const arr = [-1,2,3,-4,-9]
+const arr2 = arr.filter(function(items){
+	 return items<0}
+console.log(arr2); //[-1, -4, -9];
+```
+
+- Reduce method is used to reduce a whole array into one single value e.g, adding all the elements of the array etc.it includes and accumulator and a current value. Each value is get added to
+accumulator. Assume accumulator as snow ball which gets bigger and bigger as its roll down the hill.
+
+```bash
+const arr2 = arr.reduce(function(accumulator, current){
+	 return accumulator + current;) , 0 }; //here 0 is the of accumulator it could be any thing even an empty object
+```
+EXP2: 
+```bash
+const array = ["pacs1", "pacs2", "pacs3"];
+// console.log(array);
+
+const data = array.reduce((acc, curr) => {
+  acc.push({ key: curr, value: curr })
+  return acc;
+}, []);
+
+console.log(data);
+
+[{key: 'pacs1', value: 'pacs1'},
+{key: 'pacs2', value: 'pacs2'},
+{key: 'pacs3', value: 'pacs3'}]
+
+```
+
+### Chaining method
+In this technique we apply one method on another method and so on.
+
+Example CODE:
+```bash
+const interest = movements
+    .filter(mov => mov > 0)
+    .map(deposit => (deposit * 1.2) / 100)
+    .filter((int, i, arr) => {
+      console.log(arr);
+      return int >= 1;
+    })
+    .reduce((acc, int) => acc + int, 0);
+  labelSumInterest.textContent = `${interest}€`;
+};
+calcDisplaySummary(account1.movements);
+```
+
+### Find() method
+This method also accepts a condition (in terms of call back function) and return only first value which satisfy the condition it do not return a new array. It is very similar to filter method. The fundamental difference is that find method only return the first element and do not return a new array whereas filter method returns all the filtered elements and return a new array.
+```bash
+const arr = [1,2,-6,5,-10]
+const firstElement = arr.Find(item => item<0);
+console.log(firstElement) //-6
+```
+
+### findIndex() and IndexOf()
+
+Both methods are almost same but the major difference is that in indexof method we simply provide the value whether it exist in the array or not if yes then return the index of that value. 
+on the other hand in findindex we can perform a complex condition which will return either true or false value and will return the index of the value.
+
+### Some method
+Some method returns a boolean value. This method is almost same as include method but the difference is that it checks the availabilty of the item in an array by a condition specified
+by a user using call back function.
+
+### Every method
+Every method also returns a boolean value. This method is almost same as some method but the difference is that it returns true only when all the elements of an array satisfies the given condition
+via callback function
+
+
+### Flat and FlatMaP
+- Flat method is used to flaten the array. If there is a nested array you can make a single non nested array using this function and it do not require any call back function.
+But it flatens only one level of nest...it do not completely flat a deeper nested array. In order to flated a deeper level of nested array you must have to specify the deepness of the array
+
+for example:
+```bash
+const arr = [[[1,2],3],4,[5,6,[7]],8]
+
+console.log(arr.flat(2)) // [1,2,3,4,5,6,7,8]
+```
+
+###flatMap
+This method is simply a combination of flat and map methods
+you first simple map the array and then flat it
+it receive exactly the same call back function as map method
+
+### sort method
+
+This method is used to sort the array. This method mutates the original array.
+sort method sorts the elements on the basis of string. First it converts everything to string and then it does sorting on the basis of alphabetical order.
+in case of numbers converted to string -ve values would be come first and order will numerical like 1 2 3 ascending.
+in order to truely make the array sorted in which numbers are converted to string we have to do something like that
+// remember if return < 0, A,B (keep order)
+// if return > 0, B,A (switch order)
+
+```bash
+//Ascending
+arr.sort((a,b) => {
+if (a>b) {
+return 1
+}
+if (a<b) {
+return -1}
+}
+```
+```bash
+//Descending
+arr.sort((a,b) => {
+if (a>b) {
+return -1
+}
+if (a<b) {
+return 1}
+}
+```
+
+### Fill method
+This method is used to progammatically fill the arrays
+```bash
+syntax: array.fill(value, start, end)
+```
+
+```bash
+const arr = [1,2,3,4,5]
+
+console.log(arr.fill(5, 1, 3) // [1,5,5,4,5] 
+
+```
+
+### From method
+This method returns a new array and used to create arrays
+it receives two arguments one is length of the array and second is map function
+
+```bash
+const arr = Array.from({length : 7}, (_,i)=> { return i+1});
+console.log(arr) // [1,2,3,4,5,6,7]
+```
+
+### Assign method
+Assign method is used to merge two objects. Here we are merging an empty obj with our existed Obj to create a clone
+```bash
+const deepClonedObj = object.assign({}, myobj); // but its value will change
+//but this problem can be solve by using loadash module
+```
+
+
+### Object.freeze(myObj)
+This method is used to make the arrays and object immutable
+
+### Object.values(myObj)
+This method returns an array of values of objects
+
+# 07 Arrays Summary and which to use when
