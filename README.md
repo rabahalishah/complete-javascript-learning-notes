@@ -290,6 +290,11 @@ document.querySelector('.dice').src = `dice-${dice}.png`;
 ```
 
 # 03 How Javascript works behind the scenes
+### What is Javascript
+It is:
+- high level (we dont need to worry about memory management)
+- Object Oriented (we will store most of the data in the form of objects)
+- Multi-Paradigm (we can use different styles of progamming)
 ### High Level Language:
 In low level languages like C. User have to manually manage the memory. like even while creating varaible. On the other hand High level langugaes like python and Javascript there is a built in 
 alogrithm (garbage collector) and we dont need to worry about memory. Low level languages are much faster and optimized as compared to high level languages.
@@ -997,4 +1002,648 @@ This method is used to make the arrays and object immutable
 ### Object.values(myObj)
 This method returns an array of values of objects
 
-# 07 Arrays Summary and which to use when
+# 07 Advance DOM and Event Handling
+
+### How DOM really works
+DOM is nothing its simply an interface to communicate between the Javascript and Web browser.
+So we can say that the DOM is very complex API as it has ton of methods and properties.
+Always remember everything in HTML document is a node. And each node in JS is represented by an object.
+Element, text, comments and even the document is node.
+These nodes in html provide the JS the ton of properties such as innerHTML, .remove(), .append() etc. 
+
+Now there is a concept of inheritance where all the children elements have access to their parent elements.
+addEventListeners work because of Event Target node which is parent of both node and window (global object node type). So thanks to inheritance with all make this possible interaction.
+
+when we click on an element then the event travel from capturing phase document-->html-->body-->section-->element and once the event is reached to the target state then it bubble back to the document.
+this process is called capturing and bubbling
+### Method
+
+```bash
+getComputedStyle() //this method is used to get the value of the styles added to the elements 
+
+console.log(getComputedStyle(message).color); // rgb(187,187,187);
+
+document.document.style.color.setProptery('--color-primary', 'orangered');
+```
+
+- The getBoundingClientRect() method returns the size of an element and its position relative to the viewport.
+
+- The getBoundingClientRect() method returns a DOMRect object with eight properties: left, top, right, bottom, x, y, width, height.
+
+- scrollIntoView() this method is used to scroll the window in the visible area.
+
+```bash
+console.log(e.target) //gives the targeted element where e comes from the event function.
+console.log(e.currentTarget) //gives the current targeted element where e comes from the event function.
+```
+
+- The closest() method searches up the DOM tree for elements which matches a specified CSS selector. The closest() method starts at the element itself, then the anchestors (parent, grandparent, ...) until a match is found. The closest() method returns null() if no match is found.
+
+
+### Adding JS in HTML
+Regular in the head before body.
+
+This is not good cause the browser will start parsing the JS file and user will see nothing and this will load JS before the DOM loading. parsing HTML--> fetch script--> execute-->finishing parsing HTML.
+So always put the JS at the end of the body tag. Then the process will look like this parsing complete HTML--> fetch script--> execute.
+
+```bash
+<script async src="./script.js">
+```
+In this the process will look like parsing HTML and fetching script happens at the same time which reduces the loading time of page. but once the script is fetched it will get executed right a way.
+process: pasring HTML and fetching (at same time)-->execution-->finishing parsing HTML
+This is not good for the large JS files as HTML will be parsed completely but some part of the JS will be load later
+
+```bash
+<script defer src="./script.js"> 
+```
+In this the process will look like parsing HTML and fetching script happens at the same time which reduces the loading time of page. but once the script is fetched it will get executed at the end once the HTML is completely parsed. which is we require.
+process pasring complete HTML and fetching (at same time)-->execution
+
+- defer and async dont make sense
+- async is used when order doesnt matter
+- defer is used when order matters.
+
+# 08 Asynchronous Javascript and AJAX
+### Synchronous VS Asynchronous
+
+Synchronous simply means that the code will execute line by line in the same order as we have defined in our code.
+Asynchronous code executes after the task finishes in the background.
+Asynchronous is non blocking
+callback functions does NOT automatically make the code Asynchronous
+
+### what is AJAX?
+AJAX stands for Asynchronous javascript and XML. AJAX allows us to communicate with the remote web servers in an Asynchronous way. With AJAX calls we can request data dynamically from the web
+servers.
+
+The communication between client and web server happen Asynchronously. Like sending HTTP request to GET, POST, PUT, DELETE Data from the web server. This happens with the help of
+web API.
+
+### What is API
+Application Programming Interface: In simple words API is a piece of software which is used by another piece of software in order to communicate or talk to each other.
+There are several types of Web APISs such as:
+DOM API, Geolocation API, Own Class API, Online API
+
+Online API: Is simply an application running on web servers which receives requests for data and send data back as response. We also call them API / Web API.
+
+We can build our own APIs. This include the backend development. In order to create any web app you can use the 3rd-Party APIs which you can embed in your own
+API to complete your application
+
+### XML
+and XML is simple a data format which is widely used to transmit data. In Todays AGE nobody use XML data format to transmit data. Since AJAX is we old term but it still use these days. 
+Now most of the Web Servers today use JSON (Javascript object notation) data format. It is simply a javascript object converted into string. Which makes it very easy to use once the data is arrived.
+
+
+### CORS
+Cross-origin resource sharing. Without CORS we cannot share data. It is a browser mechanism which enables controlled access to resources located outside of a given domain.
+
+
+### JSON. parse()
+The JSON. parse() method in JavaScript is used to parse (convert back to) a JSON string which is written in a JSON format and returns a JavaScript object. Parameters: JSON String
+- JSON.parse() is used to convert a JSON string into a JavaScript object.
+- JSON.stringify() is used to convert a JavaScript object into a JSON string.
+- .json() is a method used in certain libraries or frameworks to extract the JSON body from an API response.
+
+### HOW Web works request and response
+
+The client send Http request to the web server and then the web server send the data as response. This whole process is called Request response model or Client-server- Architecture.	
+The URL consist of Protocol, Domain name and resourses
+Protocol://domain/resources
+
+Domain name is actually NOT the actual address of the server. We convert the domain name into server address by DNS lookup. (DNS stands for Domain name server) DNS is a specail type of server 
+with matches our domain name with the real IP address of the server. Once the domain name and IP address is matched. An TCP/IP Socket connection is established between client and web server. They decide how the data will travel accros the web. Its not good Idea to send the whole bunch of data to web server as a request and get the reponse in the same way. TCP/IP organize the way the data will transfer.
+TCP = Transmission control protocol and IP= internet protocol. Protocol is simply set of rules with which two parties are allowed to communicate.
+
+HTTP requests contains:
+
+Start-line: HTTP method + req target + HTTP version e.g GET/ rest/v2/HTTP/1.1
+HTTP request headers: it contains some info like host, language and browser info etc.
+Body: The data we need
+
+HTTP response contains 
+
+Start-line: HTTP version + status code + status message e.g HTTP/1.1 200 OK
+HTTP response headers: date, content-type, transfer-encoding
+Body: The data we need (JSON OR XML)
+
+
+
+The difference between HTTP and HTTPs is that HTTPs is encrypted with SSL and TLS. SSL (Secure Sockets Layer) encryption, and its more modern and secure replacement, TLS (Transport Layer Security) encryption, protect data sent over the internet or a computer network.
+
+
+
+### Promise and fetch
+```bash
+const request = fetch('https://www.webapi.com');
+console.log(request) // promise obj
+```
+fetch is a built in async JS function
+
+### What is PROMISE
+Its an ES6 feature
+promise is simply an object that is used a placeholder for the future results of an asynchronous operation. OR informally its a container for future value. By future value we simply mean an AJAX call. 
+
+Instead of nesting call back functions we can make a chain of promises for a sequence of asynchronous operations
+
+### Promise LIFECYCLE
+Promises work with asynchronous JS so they change their state with time. 
+
+initial status: pending (during this state the promise remains pending and async task is working behind the scene)
+Final status: settled (once the async task finishes then the promise will either get fulfilled or rejected)
+
+We can also build promise and consume promise. But in most of the cases we consume promises. We consume the promise by using then() method in which pass a callback function. 
+The argument which this callback fucntion takes is the value which will return in the future once the async task has successfuly completed and that return value is called response.
+```bash
+const getCountryData = function (country) {
+  fetch(`https://restcountries.com/v3.1/name/${country}`)
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(err => console.err(err))
+};
+
+getCountryData('Pakistan');
+```
+
+
+here the response is come with JSON method which is also an async function which will also return a promise so we need to handle that promise too. So in order to handle that promise we call another callback function. Catch() method is used to handle the error.
+You must remember that catch itself returns a promise.
+
+### .finally()
+This method will run either the promise is fulfilled or rejected
+
+
+
+### Throw custom errors
+```bash
+const getCountryData = function (country) {
+  fetch(`https://restcountries.com/v3.1/name/${country}`)
+    .then(response => response.json())
+    .then(response => if (!reponse.ok) throw new Error (`Country not found ${response.message})`);
+	return response.json()
+};
+```
+
+
+### Asynchronous Event Loop
+If JS is a single thread language then how it is able to run multiple task at a time? How can Asynchronous code can be executed in a non blocking way?
+The answer is that the asynchronous code runs in web API environment instead of call stack where it could block the code. Once the task is completed on the backend the callback function lies in callback queue its simply a queue like a to do list which has to be done in future. For example you set a timer of 5 sec. After the 5 sec the function will move from web API to callback queue. If theres no anyother callback function waiting for execution then our timer code will be executed this means that our 5 sec timer doesnt mean that this function will run right after 5 sec.
+No we are not sure. But we are sure that this function will not run before 5 sec. So this all depends on the state of callback queue.
+IMP point to note that callback queue also contains DOM events. Despite having the fact that the DOM events are not Async but still they use callback queue for their execution.
+
+This means JS have no sense of time. If theres any async code then this code will not execute in the browser engine it will execute in the run time who manages all the async behaviour and its event loop who decide which callback will be executed next.
+
+There is another queue called microtasks queue. This queue is for promises cause promises donot go to callback queue instead they go to microtasks queue.
+
+Microtask queue have greater pirority than callback queue.This means eventloop will first check microtasks queue then callback queues
+Never forget that the callbacks of promises always execute first due to micro tasks queue.
+
+### Trick guess the output of Asynchronous code
+The trick is that the synchronous code will always be executed first and will be executed line by line. But the Async code will not execute simply as we thought. In case of promises the promises will be executed frist after that the other callback functions will be executed included the DOM event.
+```bash
+console.log('Test Start');
+setTimeout(()=> console.log('0 sec timer'), 0);
+promise.resolve('Resolved Promise 1').then(res => console.log(res));
+
+promise.resolve('Resolved Promise 1').then(res => {
+for (let i=0; i<1000000; i++) {}
+console.log(res)});
+console.log('Test End');
+
+// Test Start
+// Test End
+// Resolved Promise 1
+// Resolved Promise 2
+// 0 sec timer
+```
+
+
+### Exp2
+```bash
+console.log('Test Start');
+setTimeout(()=> console.log('0 sec timer'), 0);
+function myfunc() {Promise.resolve('Resolved Promise 1').then(res => console.log(res))
+setTimeout(()=> console.log('0 sec timer 2'), 0)}
+
+function myfunc2() {Promise.resolve('Resolved Promise 2').then(res => {
+for (let i=0; i<10000000000; i++) {}
+console.log(res)})};
+myfunc();
+myfunc2();
+console.log('Test End');
+
+// Test Start
+// Test End
+// Resolved Promise 1
+// Resolved Promise 2
+// 0 sec timer
+// 0 sec timer 2
+```
+
+Explanation: As we can see that the promise 2 contains a large time taking task but no matter the promises will be executed first than anyother callback functions. Therefore, we can see the time given to the settimer function has no value over promises. Ideally 0 sec timer should be log first as it takes only 0 sec to execute but this was not the case as Async code runs on pirority principle which is decide by the event loop. Again The trick is that the synchronous code will always be executed first and will be executed line by line. But the Async code will not execute simply as we thought. In case of promises the promises will be executed frist after that the other callback functions will be executed included the DOM event.
+
+
+### Building our own promises
+
+Promises are special kind of JS objects
+we can create promises as shown below:
+```bash
+const promise1 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve('foo');
+  }, 300);
+});
+
+promise1.then((res) => {
+  console.log(res);
+  // Expected output: "foo"
+});
+
+console.log(promise1);
+// Expected output: [object Promise]
+```
+
+Its important to note that in case of successful event the value of response would be the same value return the function on which this method is called.
+
+Resolve and reject methods are used to immediately resolve or reject the promise. These two are also the arguments of the constructor function which create a new promise as mentioned code above.
+In reject function we mostly create new error 
+
+### Promisify
+In JavaScript, promisify is a common technique used to convert asynchronous functions that follow the traditional callback pattern into functions that return promises. 
+for example:
+
+```bash
+const getPosition = function () {
+  return new Promise(function (resolve, rejected) {
+    navigator.geolocation.getCurrentPosition(
+      position => resolve(position),
+      err => console.error(err)
+    );
+  });
+};
+```
+
+
+
+### Creating async function
+```bash
+const whereAmI = async function(country) {
+  const res = await fetch(`https://restcountries.com/v3.1/name/${country}`);
+  console.log(res);
+}
+
+whereAmI('pakistan')
+console.log('First')
+```
+
+async function is a function which executed async behind the scenes until its code is executing at back end.
+
+await keyword is just another way of consuming promises. In actual old school way we simply call an async function which returns a promise and we have to deal with that promise by using then method. Moreover If we apply .json() method on the response we again get a promise and again we have to use then() method to deal with that promise. 
+
+In the modern way we use async await to handle the promise we use await keyword and stores its value in a variable that value will be count as the response of that promise.
+
+Async await is nothing just a different syntax for promises and its handeling. This syntax is literally a blessing this syntax prevent the formation of callback hell. Due to which the code is easy to debug, reuse and maintainable.
+
+### Handling Errors with Try Catch
+```bash
+try {
+
+} catch (err) {
+	console.error(`${err.message}`)
+}
+```
+
+
+### Getting value from async function
+
+since we all know that async function do not run immediately. But what if we pass function as a value and then call it?
+in this way you will get a promise (as we all know async function returns a promise). but if we pass that function as a value and then execute it. It will return a promise pending in console.
+```bash
+console.log("start")
+const cool = whereAmI()
+cool()
+console.log("end")
+
+//start
+// promise <pending>
+// end
+```
+
+Here above we have passed function as a value and then executed it. Remember is an async function
+
+
+Now simply direct calling the async function
+```bash
+console.log("start")
+whereAmI().then(res => console.log(res); 
+console.log("end")
+
+// start
+// end
+// response
+```
+
+**NOTE:** never run an async function without try and catch block
+
+### Runnig async functions in parallel
+you can several async functions by async await method but if the functions are dependent then the rejection of each promise will to the rejection of all promise. Therefore we often say promises are shortcicrcuits.
+
+- promise.all() function get shortcircuit on faliure of any promise.
+- whereas promise.allSettled() do not get short circuit on rejection of an event
+- promise.any() this function returns a first true promises only.  
+
+### await keyword only works on async function
+this statement is true. Cause await keyword pause the execution. And this is only possible for async code/function. Remember our fetch function is built in async function.
+
+Examples:
+```bash
+function myfunc(){
+  for(i=0; i<100; i++){
+    console.log(i);
+  }
+}
+
+async function main() {
+  console.log('innner above');
+  await myfunc(); // here await is useless cause myfunc is not an async function
+  console.log('innner below');
+}
+
+console.log('outer 2');
+
+main();
+function myfunc2(){
+  console.log('function 2')
+}
+
+myfunc2();
+
+console.log('outer 3')
+```
+
+#### Explanation:
+
+In JavaScript, asynchronous functions are executed differently from synchronous functions. When you call an asynchronous function, it starts executing, but it doesn't block the execution of the rest of your code. Instead, it allows the code following the asynchronous function call to continue running while the asynchronous function completes its tasks.
+
+- In your code, the function `myfunc()` is an asynchronous function, and it contains a loop that logs the values of `i`. However, since there is no asynchronous behavior within `myfunc()`, it runs synchronously and logs the values from 0 to 99.
+
+- The `main()` function is also an asynchronous function. When you call `main()`, it starts executing, and the first line inside `main()` is to log "inner above" to the console. Then, the `await myfunc()` line is encountered.
+
+- The `await` keyword pauses the execution of the `main()` function until the promise returned by `myfunc()` is resolved. In this case, since `myfunc()` doesn't return a promise explicitly, the JavaScript engine wraps its return value (which is `undefined`) into a resolved promise. This allows the execution of `main()` to continue.
+
+- While `main()` is waiting for the completion of `myfunc()`, the code outside the `main()` function continues to execute. That's why you see "outer 2" being logged to the console.
+
+- Once the loop in `myfunc()` completes logging the numbers, the execution returns to the `await myfunc()` line inside `main()`, and it proceeds to log "inner below" to the console.
+
+- After that, the code continues to execute outside the `main()` function. Hence, you see "outer 3" being logged to the console.
+
+To summarize, the output order is as follows:
+1. outer 1
+2. outer 2
+3. inner above
+4. 0
+5. 1
+6. 2
+...
+97. 97
+98. 98
+99. 99
+100. inner below
+101. function 2
+102. outer 3
+
+Note that the `console.log()` statement inside `myfunc2()` is executed immediately when called, so "function 2" is logged before "outer 3".
+
+
+### Example 2:
+```bash
+async function myfunc(){
+  const data = await fetch('https://restcountries.com/v3.1/name/portugal')
+  console.log(data)
+  for(i=0; i<100; i++){
+    console.log(i); 
+
+  }
+}
+
+async function main() {
+  console.log('innner above');
+  await myfunc();
+  console.log('innner below');
+}
+
+console.log('outer 2');
+
+main();
+function myfunc2(){
+  console.log('function 2')
+}
+
+myfunc2();
+
+console.log('outer 3')
+"
+```
+
+# 09 Best Practices to write Javascript
+
+### General Rules to have good code:
+- Use DRY principle (Do not repeat)
+- Do NOT pollute global namespace
+- Do NOT use var
+- Use strong type check (=== and !==)
+
+### For Functions
+
+- Functions should do only ONE thing.
+- Don't use more than 3 parameters
+- use default parameters whenever possible.
+- return same data type as received
+- use arrow functions when they make code more readable
+- Dont use arrow functions as methods as they do not have their own this keyword.
+
+
+### Avoid Nested CODE:
+- use early returns (guard clauses)
+- Use ternary or logical operators (cause they do not create code block )instead of IF
+- use multiple if instead of if/ else-if
+- Avoid for loops instead use array methods
+- Avoid callback-based async APIs
+
+
+### Async code
+
+- Consume promises with async  await for best readability
+- whenever possible run promises in parallel (promise.all)
+- Handle errors and promise rejections
+
+### Functional Programming
+- try to avoid data mutation
+- Use built in methods dont produce side effects
+- for data transformation use methods map, filter and reduce
+
+### Declarative syntax
+- Use array and object destructuring.
+- use spread operator (...)
+- use ternary (conditional) operator 
+- user template literals
+
+# 10 Closure
+**Its the HARDEST Javascript concept xD**
+
+To understand closure you must an idea about execution context, Call Stack and scope chain.
+**DEFINITION:**
+Closure is a closed over Execution context. Every function always have access to the variable environment of the execution context in which the function is created even
+after that execution context is gone".
+
+We do NOT create closures manually or explicitly but the they happens automatically in certain situations and we just need to recognize those situations.
+Closure is strang. CLosure makes a function remember all the varaibles that existed at the functions birth place.
+```bash
+const secureBooking = function() {
+	let passengerCount = 0;
+	
+	return function() {
+	
+	passengerCount++;
+	console.log(`${passengerCount} passengers`)}
+}
+}
+
+const booker = secureBooking();
+// EXPECTED OUTPUT:
+booker(); // 1 passengers
+booker(); // 1 passengers
+booker(); // 1 passengers
+booker(); // 1 passengers
+
+//ACTUAL OUTPU:
+booker(); // 1 passengers
+booker(); // 2 passengers
+booker(); // 3 passengers
+booker(); // 4 passengers
+```
+
+
+OH DAMNNN how is this even possible. How booker function is able to access the passengerCount variable and remeber its value despite having  the fact that its
+out of the scope of secureBooking. How this function is able to update the variable 
+despite having the fact that the execution of booker has finished. When ever we call booker function we call it and it get executed and then finised immediately but how
+is it even possible that our next call remember the state of the previous call?
+
+**ANSWER:** In order to understand the answer to this big question is the concept of closure. Closure makes a function to remember all the variables that existed at the function birth place. But how?
+
+the booker function is created in global environment and added in a call stack. The secureBooking is also declared in global scope. but the function within the secureBooking 
+function is not global scope. The secret is that "Every function always have access to the variable environment of the execution context in which the function is created even
+after that execution context is gone".
+
+In this case the booker was created in execution context of the secureBooking function therefore, the booker function has access to the variable environment of secureBooking. And the function which is within the secureBooking is also created in the execution of secureBooking therefore it also have access to the variable environment of secureBooking moreover the function within the secureBooking is also in the scope chain of secureBooking.
+
+So now we can think that Closure is variable environment attached to the function, exactly as it was at the time and place the function was created.
+
+JS engine gives greater priority to the closure as compared to scope chain. Thats why all such stuff happened.
+
+
+A closure gives a function to access all the variables of its parent function, even after that 	parent function has returned. The function keeps reference to its outer scope, which 
+preserves the cope chain throughout the time.
+
+Thanks to closure which make sure thet the connection between the function and variable which existed at the functions birth place do not loose.
+
+A closure is like a bag pack which function always keep with it where ever it goes. This Bagpack has all the variables that were present in the environment where the function was created.
+
+To see the internal property of Closure we can use:
+```bash
+console.dir(booker) //closure function
+```
+
+now go to scope section of this result.
+
+whenever you see double bracket in console.dir this means its an internal property we cannot access them.
+
+Moreover, it not always the situation that the closure will happen only when there is a function returning another function. This wont be the case everytime.
+
+# 11 Premitives and Objects
+
+### Premitives
+Premitives are numbers, boolean, strings, undefined, null, symbol, BigInt etc.  Permitive types are store in execution context.
+
+When we declare a variable in call stake an identifier of the name of that variable, an address and its value are stored. When we re-assign the varibale to the another variable the newly created
+variable will also point towards the same address. But when we assign a variable a new value then a completely new address along with new value is stored in the call stack.
+
+### Objects (reference type)
+Objects literal, Arrays, Functions and Many more etc. They are store on HEAP of JS Engine. 
+In case of objects. when the objects are created the identifier, address are created but in value column there is reference of memory (heap). Now in Heap the reference along with the keys and values of objects are stored in HEAP. This is how objects are store because objects can be larger they cannot store in call stack therefore, they are stored in HEAP memory. In short call stack keep track where is object in heap and it will call when it is necessary.
+
+**IMPORTANT** the values declared by the const are also mutable. This is true for the case of objects not for permitive values.
+Changing values in Heap doesn't affect by let or const. The only thing which is affect by let and const is the values in call Stack. We cannot change values in call stack declared by const.
+To Create a new copied object we can use:
+```bash
+copiedObj = Object.assign({}, myObj}
+```
+
+**REMEMBER** object.assign() only creates a shallow copy not a deep clone. Means it would copy only at the first level like if there is a nested object then the inner object wont have different
+address that will remain same. For deep cloning we have to use external libraries such as loadash
+```bash
+b = JSON.parse(JSON.stringify(a))
+```
+
+# 12 Scoping in JS
+### Scoping
+Scoping means how our JS code will be oraganised and accessed by JS engine. where do varaibles live and where we can access them or not?
+
+Scope is an environment or place where a certain variable is declared
+1. Global Scope (Declared outside of any function and block and can be accessed everywhere throughout the document.
+2. Function scope (Also called local scope. Functions create their own region and variables are declared in that region are only accessible inside the function NOT outside the function
+3. Block scope (anything inside the curly braces will create it region. This is only true for let and const variables As let and const are block scoped. Block scope is not apply for var variables as var is function scope)
+
+### Scope Chain:
+variable in the child scope can access the variable declared in its parent scope. Note that all parent elements are children of global scope.
+Inner variables can access the variables of outer variables but outer variables cannot access the inner variables. In short children can access from their parents but parents cannot access from their children.
+Scope of Variable: In short its a region of our code where a certain variable is accessed.
+Scope and scope of a variable both are different things.
+Sibling elements cannot have access to the variables of eachother  The scope chain works upwards. neither downward nor sideway
+When the code is executed first the global objects are executed then the functions (or only when they are called)
+functions are also blocked scoped but only in case of strict mode
+
+# 13 'THIS' Keyword
+
+This keywords is a special variable points to the owner of the function. its value is not static its not always the same. It depends how the function is actually called. 
+And its value will be only assigned when the function is called.
+
+There are four ways of calling a function
+1. As method (In this case the this keyword will point towards the object on which this method is called.)
+2. Simple function call (In this case the this keyword will simply be undefined. Only when the strict mode is on. If the strict mode is off then this 	 keyword will point toward the windows global      object
+3. Arrow function (Arrow functions donot have its own this keyword. But if you would do this then this keyword will simply point towards the this keyword of its parent element and parent element could also be global windows)
+4. EventListner (in this case this keyword will point toward the DOM element that the handler function is attached to.)
+
+
+This will never point the function in which we are using it. and This keyword will never point to the environment variables of the function.
+
+**IMPORTANT:**
+- Never Ever use arrow functions inside objects (means dont use them as method)
+- Always use let and const instead of var.
+- It doesnt mean that under which function or object the this keyword is declared it will always point toward that object. NO its not true. Actually it will point toward the object which is calling the method.
+
+For example:
+```bash
+const jonas = {
+  year : 1991,
+  calcAge: function() {
+    console.log(this);
+    console.log(2037-this.year);
+  }
+}
+
+const matilda = {
+  year : 2017,
+
+  }
+
+
+  matilda.calcAge = jonas.calcAge //borrowing the method
+
+  matilda.calcAge() //Answer would be 20 here as matilda is calling the method therefore this keyword will point towards matilda object not jonsa
+
+```
+
+- var creates variable in windows global object and function declared by var donot have arguments keyword.
+
+- A regular function have arguments keywordS
+
+
