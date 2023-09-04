@@ -887,7 +887,7 @@ const store = [
 		{name: 'rabah3', price: 6}
 		]
 
-const TotalPrice= store.reduce((accumulator, item)=>{return total + item.price}, 0)
+const TotalPrice= store.reduce((accumulator, item)=>{return accumulator + item.price}, 0)
 console.log(TotalPrice);
 
 // output: 14
