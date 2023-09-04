@@ -879,6 +879,22 @@ console.log(data);
 {key: 'pacs3', value: 'pacs3'}]
 
 ```
+EXP3:
+```bash
+const store = [
+		{name: 'rabah1', price: 2},
+		{name: 'rabah2', price: 6},
+		{name: 'rabah3', price:6 }
+		]
+
+const TotalPrice= store.reduce((accumulator, item)=>{return total+ item.price},0)
+console.log(TotalPrice);
+
+// output: 14
+```
+Here we just have to understand two parameters, accumulator (whose value will be unpdated) and item (This is the each item in the list)
+You always have to give the initial value of accumulator.
+
 
 ### Chaining method
 In this technique we apply one method on another method and so on.
