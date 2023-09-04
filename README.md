@@ -879,15 +879,15 @@ console.log(data);
 {key: 'pacs3', value: 'pacs3'}]
 
 ```
-EXP3:
+EXP 3:
 ```bash
 const store = [
 		{name: 'rabah1', price: 2},
 		{name: 'rabah2', price: 6},
-		{name: 'rabah3', price:6 }
+		{name: 'rabah3', price: 6}
 		]
 
-const TotalPrice= store.reduce((accumulator, item)=>{return total+ item.price},0)
+const TotalPrice= store.reduce((accumulator, item)=>{return total + item.price}, 0)
 console.log(TotalPrice);
 
 // output: 14
