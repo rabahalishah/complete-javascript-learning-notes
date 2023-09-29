@@ -1276,7 +1276,7 @@ promise1.then((res) => {
 console.log(promise1);
 // Expected output: [object Promise]
 ```
-
+Here new promise returns two functions one is resolve and other one is reject.
 Its important to note that in case of successful event the value of response would be the same value return the function on which this method is called.
 
 Resolve and reject methods are used to immediately resolve or reject the promise. These two are also the arguments of the constructor function which create a new promise as mentioned code above.
