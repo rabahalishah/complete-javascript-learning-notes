@@ -1,5 +1,5 @@
 # About: Javascript_guide
-I have created this repo. This repository covers almost all topics of JavaScript along with explanation and examples. Bonus: This repo also includes an explanation about how JavaScript works behind the scenes which most of the developers dont event know. Check it out this guide and standout yourself from other JavaScript developers. Its FREE for all developers. This took me +100 hours to write. If this find you helpful give it a star. 
+I have created this repo. This repository covers almost all topics of JavaScript along with explanation and examples. Bonus: This repo also includes an explanation about how JavaScript works behind the scenes which most of the developers dont event know. Check it out this guide and standout yourself from other JavaScript developers. Its FREE for all developers. This took me weeks to write. If you find this helpful give it a star. 
 
 ## Contributing
 
