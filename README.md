@@ -1780,4 +1780,254 @@ then push it to gitHub
 
 parcel automatically use babel so we dont have to need worry about polyfil and transpile. But recently babel has strated recommending another library for polyfilling that is cors-js which make sure that the specific code is supported by the browser or not.
 
+# Prototyping and prototypal inheritance in Javascript
+JS is a prototype based language. JS use prototypes to use methods on objects and to inherit properties of object with another.
+
+When we create object can apply methods on it. How we are able to access those built in methods on objects? Even functions are objects and they have some builtin methods too. How we are able to access these methods on objects and functions? The answer is that "Prototype".
+Objects and functions have protoypes. If you would run 
+```
+>Object.prototype
+
+or
+
+const myObj = {
+apple: true
+}
+
+> myObj.__proto__
+
+```
+
+you will get an object having several builtin methods. This is place from where you get your builtin methods.
+
+## Prototype chaining
+```
+
+const myObj = {
+apple: true
+}
+
+> myObj.__proto__.__proto__
+
+```
+here you will again get another object that will be the prototype of _proto__ object
+
+and if you would run
+
+```
+
+const myObj = {
+apple: true
+}
+
+> myObj.__proto__.__proto__.__proto__
+// you will get null
+```
+
+same you can do with functions
+
+```
+>function.prototype
+
+or
+
+const myfun = {
+apple: true
+}
+
+> myfun.__proto__
+
+```
+
+here you will get again a prototype object.
+
+## Prototypal inheritance
+
+By this powerful concept you can access the methods or properties of one object with another. This is done by if we inherit those mehtods and properties in the prototype object and we all know we can access this prototype object anywhere in the document.
+
+```
+let myObj1 = {
+name: 'hell boy',
+city: "Islamabad",
+getIntro: function (){
+console.log(`${this.name} from ${this.city}`);
+}
+}
+
+let myObj2 = {
+name: "cool boy"
+}
+
+//implementing prototypal inheritance
+
+myObj2.__proto__ = myObj1;
+
+//here I have inherit myObj1 in prototype object of myObj2 so we can use methods and properties of myObj1 on myObj2
+
+but if we do:
+> myObj2.getIntro()
+//output: cool boy from Islamabad
+
+//here you can see myObj2 didn't have any getIntro method but after prototypal inheritance we successfully access the getIntro method.
+//but now in getIntro method "this" keyword will point toward myObj2
+```
+
+but never implement inheritance like this 
+> myObj2.__proto__ = myObj1;
+
+cause this can effect the performance as __proto__ method look first in myObj2 and the it looks in the __proto__ object which can be slow.
+
+# Throttling Vs Debouncing in JS
+
+**Throttling**: In throttling we restrict a function (heavy duty/time consuming function) to frequently invoke. We use a fixed time interval after that function can be triggered. You cannot trigger that function before that set time.
+
+**Debouncing**: In debouncing we also restrict our function to invoke but this time if the function is triggered before the time the timer will be reset and would start again. This will happen until user stops. In Debouncing we actually wait for the user to stop. So that timer would be over and the function will be invoked. Application is searching suggestions. The browser will not give suggestion until user get stops
+
+## Detail:
+### Execution Behavior
+Throttling: In throttling, the function is executed at a fixed interval. Even if the triggering event occurs more frequently, the function is invoked according to the defined interval.
+
+Debouncing: In debouncing, the function is only executed after a specific delay since the last event's occurrence. If new events occur within the delay period, the timer is reset, and the function execution is further delayed.
+
+### Use Cases
+**Throttling:** Throttling is suitable for scenarios where you want to limit the frequency of function calls, like handling scroll events or resizing events. It helps avoid overloading the system with frequent updates.
+
+**Debouncing:** Debouncing is ideal when you want to wait for a pause in the events before triggering a function. This is useful for situations like search suggestions, where you want to wait for the user to finish typing before fetching suggestions.
+
+## Implementation of Throttling and Debouncing
+**Throttling:** Throttling typically involves setting a fixed interval between function calls using timers or timestamps to track the last invocation time.
+
+**Debouncing:** Debouncing involves starting a timer when an event occurs and resetting the timer whenever a new event occurs within the delay period. The function is executed when the timer expires after the last event.
+
+Let's look at some code examples for more understanding
+
+#### Throttling Example
+Imagine you have a web page with a scrolling event that triggers some action, like loading more content. Without throttling, if the user scrolls quickly, the action might be triggered multiple times in rapid succession. Throttling ensures that the action is executed at a fixed interval.
+```
+function throttle(func, delay) {
+  let lastCall = 0;
+  return function (...args) {
+    const now = new Date().getTime();
+    if (now - lastCall >= delay) {
+      func(...args);
+      lastCall = now;
+    }
+  };
+}
+
+const throttledScrollHandler = throttle(() => {
+  console.log("Loading more content...");
+}, 1000);
+
+window.addEventListener("scroll", throttledScrollHandler);
+
+
+// EXAMPLE 2
+
+  const btn = document.querySelector("#throttle");
+ 
+
+        // Throttling Function
+
+        const throttleFunction = (func, delay) => {
+ 
+
+            // Previously called time of the function
+
+            let prev = 0;
+
+            return (...args) => {
+
+                // Current called time of the function
+
+                let now = new Date().getTime();
+ 
+
+                // Logging the difference
+
+                // between previously 
+
+                // called and current called timings
+
+                console.log(now - prev, delay);
+ 
+
+                // If difference is greater
+
+                // than delay call
+
+                // the function again.
+
+                if (now - prev > delay) {
+
+                    prev = now;
+ 
+
+                    // "..." is the spread
+
+                    // operator here 
+
+                    // returning the function with the 
+
+                    // array of arguments
+
+                    return func(...args);
+
+                }
+
+            }
+
+        }
+
+        btn.addEventListener("click",
+
+            throttleFunction(() => {
+
+                console.log("button is clicked")
+
+            }, 1500));
+```
+In this example, the throttle function wraps the original function (scrollHandler) and ensures that it's called at most once every 1000 milliseconds (1 second) no matter how quickly the user scrolls.
+
+Debouncing Example
+Suppose you have a search input field that triggers an API call to fetch search results as the user types. Without debouncing, the API call would be made on every keystroke, causing excessive requests. Debouncing ensures that the API call is made only after the user has paused typing.
+```
+function debounce(func, delay) {
+  let timeoutId;
+  return function (...args) {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
+      func(...args);
+    }, delay);
+  };
+}
+
+const debounceSearch = debounce((query) => {
+  console.log(`Searching for: ${query}`);
+  // Make API call with the search query
+}, 300);
+
+const searchInput = document.getElementById("search-input");
+searchInput.addEventListener("input", (event) => {
+  debounceSearch(event.target.value);
+});
+
+// EXAMPLE 2
+let button = document.getElementById("debounce");
+        const debounce = (func, delay) => {
+            let debounceTimer
+            return function () {
+                const context = this
+                const args = arguments
+                clearTimeout(debounceTimer)
+                debounceTimer
+                    = setTimeout(() => func.apply(context, args), delay)
+            }
+        }
+        button.addEventListener('click', debounce(function () {
+            alert("Hello\nNo matter how many times you" +
+                "click the debounce button, I get " +
+                "executed once every 3 seconds!!")
+```
+In this example, the debounce function ensures that the API call is made 300 milliseconds after the user stops typing. If the user continues typing, the timer is reset, preventing the API call from being triggered too frequently.
 
