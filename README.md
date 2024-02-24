@@ -47,6 +47,20 @@ let and const are modern javascript wherease the var is the old way.
 let values are mutable, let also used for defining the empty variables
 its okay with let to reassign a new value....like if let age = 30 in future  it can be 31 its totally fine. but cannot do this with const. Once assigned it cannot mutate. as const is immutable. Moreover we cannnot declare empty const variable.
 
+### Var
+- var is global scope if is defined globally and it can be accessed anywhere in the document. But if it is defined inside a function it cannot be accessed outside of the function
+- It can be updated and re-declared in the same scope.
+- It can be accessed without initialization as its default value is “undefined”.
+- It can be declared without initialization.
+### Let
+- (blocked scope) let is a block scope but it can be defined empty and be mutate/update. a variable defined by let inside an if block connot be accessed outside of the block.
+- It can be updated but cannot be re-declared in the same scope.
+- It can be declared without initialization.
+### Const
+- (blocked scope) The const keyword has all the properties that are the same as the let keyword, except the user cannot update it and have to assign it with a value at the time of declaration. These variables also have the block scope. It is mainly used to create constant variables whose values can not be changed once they are initialized with a value.
+- It can neither be updated or re-declared in any scope.
+- It can't be declared without initialization.
+
 #### BEST PRACTICE: 
 Always use const as best practice and only use let when you are sure that this value is gonna change somewhere in future. and var variable should be avoided
 
